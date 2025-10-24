@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher Shop - EmpowerHer</title>
+    <link rel="stylesheet" href="profile.css"> <link rel="stylesheet" href="shop.css">   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+
+    <header>
+        <div class="site-title-bar">
+            <div class="logo">EmpowerHer</div>
+        </div>
+        <nav class="main-nav-bar">
+            <a href="home.html">Home</a>
+            <a href="stories.html">Survival Stories</a>
+            <a href="resources.html">Resources</a>
+            <a href="profile.html">Profile</a>
+            <a href="help.html">Get Help</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="shop-header">
+            <div class="shop-title-bar">
+                <a href="profile.html" class="exit-btn" title="Back to Profile">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <h2>Voucher Redeem Center</h2>
+            </div>
+            <div class="coin-balance">
+                <i class="fa-solid fa-coins"></i>
+                <span>Your Balance:</span>
+                <strong id="userCoinBalance">1000</strong>
+            </div>
+        </div>
+
+        <div class="voucher-grid">
+            <div class="voucher-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Myntra_logo.png" alt="Myntra Logo" class="brand-logo">
+                <h3>50% Off on Fashion</h3>
+                <p>Valid on select styles on Myntra.</p>
+                <div class="voucher-cost">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>1500 Coins</span>
+                </div>
+                <button class="redeem-btn" data-cost="1500" data-voucher="Myntra 50% Off">Redeem</button>
+            </div>
+            <div class="voucher-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo" class="brand-logo">
+                <h3>₹250 Gift Card</h3>
+                <p>Use on any purchase on Amazon.in.</p>
+                <div class="voucher-cost">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>2500 Coins</span>
+                </div>
+                <button class="redeem-btn" data-cost="2500" data-voucher="Amazon ₹250 Gift Card">Redeem</button>
+            </div>
+             <div class="voucher-card">
+                <img src="https://upload.wikimedia.org/wikipedia/en/d/d3/Starbucks_Corporation_Logo_2011.svg" alt="Starbucks Logo" class="brand-logo">
+                <h3>Free Tall Latte</h3>
+                <p>Redeemable at any Starbucks outlet.</p>
+                <div class="voucher-cost">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>800 Coins</span>
+                </div>
+                <button class="redeem-btn" data-cost="800" data-voucher="Starbucks Free Latte">Redeem</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="redeemModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Confirm Redemption</h2>
+            <p id="modalText">Are you sure you want to spend coins on this voucher?</p>
+            <div class="modal-buttons">
+                <button id="confirmRedeemBtn" class="modal-btn confirm">Confirm</button>
+                <button id="cancelRedeemBtn" class="modal-btn cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2025 EmpowerHer</p>
+    </footer>
+    <script src="shop.js"></script>
+</body>
+</html>

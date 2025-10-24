@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - EmpowerHer</title>
+    <link rel="stylesheet" href="profile.css"> 
+    <link rel="stylesheet" href="edit-profile.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="site-title-bar">
+            <div class="logo">EmpowerHer</div>
+        </div>
+        <nav class="main-nav-bar">
+             <a href="home.html">Home</a>
+             <a href="testimonials.html">Testimonials</a>
+             <a href="stories.html">Survival Stories</a>
+             <a href="resources.html">Resources</a>
+             <a href="profile.html" id="active">Profile</a>
+             <a href="help.html">Get Help</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="edit-profile-container">
+            <h2>Edit Your Profile</h2>
+            <form id="editProfileForm">
+                <label for="editName">Full Name</label>
+                <input type="text" id="editName" placeholder="Enter your full name" required>
+
+                <label for="editDob">Date of Birth</label>
+                <input type="date" id="editDob" required>
+                
+                <button type="submit">Save Changes</button>
+                <a href="profile.html" class="cancel-link">Cancel</a>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 EmpowerHer</p>
+        </div>
+    </footer>
+    <script src="edit-profile.js"></script>
+
+</body>
+</html>

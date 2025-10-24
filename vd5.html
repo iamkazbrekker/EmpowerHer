@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5 - EmpowerHer</title>
+    <link rel="stylesheet" href="vd.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+    <header class="video-header">
+        <a href="home.html" class="close-btn"><i class="fa-solid fa-xmark"></i> Close Video</a>
+        <a href="#" class="report-btn"><i class="fa-solid fa-flag"></i> Report a Problem</a>
+    </header>
+    <main class="video-content">
+        <h1 class="video-title">Module 5: The 3 Moves</h1>
+        <div class="video-player-wrapper">
+            <iframe id="video-player" width="560" height="315" src="https://www.youtube.com/embed/O5iml428XgI?start=57&enablejsapi=1&end=458" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </main>
+    <div class="popup-overlay" id="completion-popup">
+        <div class="popup-content">
+            <button class="popup-close" id="popup-close-btn">&times;</button>
+            <i class="popup-icon fa-solid fa-star"></i>
+            <h2>Congratulations!</h2>
+            <p>You've gained <span class="exp-points">500 EXP</span> for completing this module.</p>
+            <a href="home.html" class="popup-button" id="continue-btn">Continue to Next Video</a>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 EmpowerHer</p>
+        </div>
+    </footer>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="vd5.js"></script>
+</body>
+</html>

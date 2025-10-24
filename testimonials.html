@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpowerHer - Testimonials</title>
+  <link rel="stylesheet" href="testimonialscss.css">
+
+  <!-- Fonts & Icons (same as home page) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="site-title-bar">
+      <div class="logo">EmpowerHer</div>
+    </div>
+    <nav class="main-nav-bar">
+      <a href="home.html">Home</a>
+      <a href="testimonials.html" class="active">Testimonials</a>
+      <a href="stories.html">Survival Stories</a>
+      <a href="resources.html">Resources</a>
+       <a href="profile.html">Profile</a>
+      <a href="help.html">Get Help</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="testimonial-section">
+      <div class="section-header">
+        <h2>Testimonials</h2>
+        <button class="add-btn" onclick="openForm()">+ Add Testimonial</button>
+      </div>
+
+      <div class="testimonial-list" id="testimonialList">
+        <!-- Example Testimonial -->
+        <div class="testimonial-card">
+          <h3>Anonymous</h3>
+          <p>This platform gave me the confidence I needed to walk home alone again. Truly life-changing.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Popup Form -->
+  <div class="popup-form" id="popupForm">
+    <div class="form-box">
+      <textarea id="testimonialInput" placeholder="Write your testimonial here..."></textarea>
+      <button onclick="submitTestimonial()">Submit</button>
+      <button class="close-btn" onclick="closeForm()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 EmpowerHer</p>
+    </div>
+  </footer>
+
+  <script src="testimonialsjs.js"></script>
+</body>
+</html>

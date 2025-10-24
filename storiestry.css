@@ -1,0 +1,255 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Poppins', sans-serif;
+  background: #191624;
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Header & Navigation --- */
+header {
+  width: 100%;
+  background-color: #191624;
+  border-bottom: 1px solid #2a263c;
+}
+
+.site-title-bar {
+  text-align: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #2a263c;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.main-nav-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #2a263c;
+}
+
+.main-nav-bar a {
+  color: #d1d1d1;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.main-nav-bar a:hover,
+.main-nav-bar a.active {
+  color: #8a63d2;
+}
+
+/* --- Stories Section --- */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem 5rem;
+}
+
+.stories-section {
+  width: 90%;
+  max-width: 1200px;
+}
+
+.stories-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #8a63d2;
+  text-align: center;
+}
+
+/* --- Story Grid --- */
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* --- Story Cards --- */
+.story-card {
+  background-color: #2a263c;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 500px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(138, 99, 210, 0.4);
+}
+
+.story-info {
+  padding: 20px;
+  background: rgba(0,0,0,0.6);
+}
+
+.story-info h3 {
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.story-info p {
+  font-size: 0.95rem;
+  color: #d1d1d1;
+}
+
+/* --- Flip Card --- */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+}
+
+.flip-card-front {
+  background-size: cover;
+  background-position: center;
+}
+
+.flip-card-back {
+  background-color: #1f1b2c;
+  padding: 20px;
+  transform: rotateY(180deg);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #d1d1d1;
+  overflow-y: auto;
+}
+
+/* --- Story Backgrounds --- */
+#story1 { background-image: url("https://www.bwss.org/wp-content/uploads/BWSS-survivor-stories.jpg"); }
+#story2 { background-image: url("https://www.bwss.org/wp-content/uploads/SC002.jpg"); }
+#story3 { background-image: url("https://www.bwss.org/wp-content/uploads/SC003.jpg"); }
+#story4 { background-image: url("https://cdn.prod.website-files.com/60084943880a0ad451c6cd31/671924788def67f088e8ec36_og-image.webp"); }
+#story5 { background-image: url("https://allagainstabuse.org/wp-content/uploads/2021/05/Warrior.5-2.jpg"); }
+#story6 { background-image: url("https://www.womenagainstabuse.org/assets/img/_170x170_crop_top-center_100_none/Jamie-thumbnail.png"); }
+
+/* --- Footer --- */
+footer {
+  width: 100%;
+  background-color: #191624;
+  border-top: 1px solid #2a263c;
+  padding: 1.5rem 5%;
+  text-align: left;
+  color: #d1d1d1;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+/* =============================================== */
+/* === Responsive Media Queries for All Devices === */
+/* =============================================== */
+
+
+/* --- For Tablets and Smaller Desktops (less than 992px) --- */
+@media (max-width: 992px) {
+    
+    /* Makes the two-column profile page stack vertically */
+    main {
+        grid-template-columns: 1fr !important; /* Use !important to override inline styles or specificity issues */
+    }
+
+    /* Hides the sidebar on the videos page to save space */
+    .sidebar {
+        display: none;
+    }
+
+    /* Makes the main content on the videos page take up the full width */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+
+/* --- For Mobile Phones and Small Tablets (less than 768px) --- */
+@media (max-width: 768px) {
+
+    /* Makes the main navigation bar links wrap instead of overflowing */
+    .main-nav-bar {
+        flex-wrap: wrap;
+        gap: 1rem; /* Reduces space between nav items */
+        padding: 1rem 0.5rem;
+    }
+
+    /* Reduces padding on main content areas to give more room */
+    main {
+        padding: 1.5rem 1rem;
+    }
+    
+    /* Reduces the size of main page titles */
+    .page-title, .shop-header h2 {
+        font-size: 2rem;
+    }
+
+    /* Adjusts the home page path layout */
+    .learning-path-container {
+        padding: 1rem;
+    }
+    
+    .module {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+
+/* --- For Small Mobile Phones (less than 480px) --- */
+@media (max-width: 480px) {
+
+    /* Further reduces nav link size */
+    .main-nav-bar a {
+        font-size: 0.9rem;
+        gap: 0.8rem;
+    }
+
+    /* Makes login and edit-profile forms fit better */
+    .login-container, .edit-profile-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    /* Reduces font size on profile card for better fit */
+    .profile-username {
+        font-size: 1.5rem;
+    }
+    
+    /* Stacks the shop header content vertically */
+    .shop-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
