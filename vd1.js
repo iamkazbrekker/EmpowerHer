@@ -4,6 +4,37 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+var wrapper = document.getElementsByClassName("video-player-wrapper")[0];
+var links = ["https://www.youtube.com/embed/qM9KRfpZmIg?start=57&enablejsapi=1&end=210",
+            "https://www.youtube.com/embed/eUikQsy3Cmw?start=57&enablejsapi=1&end=403",
+            "https://www.youtube.com/embed/AvC0vuaEzkI?start=57&enablejsapi=1&end=554",
+            "https://www.youtube.com/embed/OYGCV74sofE?start=57&enablejsapi=1&end=341",
+            "https://www.youtube.com/embed/O5iml428XgI?start=57&enablejsapi=1&end=458",
+            "https://www.youtube.com/embed/q1H4eGYTGQE?start=57&enablejsapi=1&end=281"]
+var limit = parseInt(localStorage.getItem('unlockedUpTo') || 1)
+
+wrapper.innerHTML = `
+  <iframe 
+    id="video-player" 
+    width="560" 
+    height="315" 
+    src="${links[limit - 1]}" 
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+`;
+
+var head = document.getElementsByClassName('video-title')[0]
+headings = ['Module 1: Hair Grab',
+            'Module 2: Wrist Grab',
+            'Module 3: Shoulder Grab',
+            'Module 4: Defending Yourself From Ground',
+            'Module 5: The 3 Moves',
+            'Module 6: Self Defence Moves To Avoid '
+]
+head.innerText = headings[limit-1]
 // 2. This function creates an <iframe> (and YouTube player) after the API code downloads.
 var player;
 function onYouTubeIframeAPIReady() {
@@ -63,7 +94,7 @@ if (continueBtn) {
 
     // 1. Save progress. Let's say this video unlocks module 2.
     // We store that the user has unlocked everything UP TO module 2.
-    localStorage.setItem('unlockedUpTo', '2');
+    localStorage.setItem('unlockedUpTo', (limit+1).toString);
 
     // 2. Redirect to the homepage
     window.location.href = 'home.html';
