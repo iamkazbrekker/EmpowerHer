@@ -20,7 +20,7 @@ document.getElementById("signupForm").addEventListener("submit", function (e) {
 
   // Redirect to login
   setTimeout(() => {
-    window.location.href = "home.html";
+    window.location.href = "../home/home.html";
   }, 1000);
 });
 localStorage.setItem("userName", name);

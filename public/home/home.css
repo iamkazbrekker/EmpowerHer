@@ -30,6 +30,10 @@ header {
     margin: 0 auto;
 }
 
+.module-icon{
+    width: 32px;
+    height: 32px;
+}
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
