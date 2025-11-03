@@ -150,12 +150,12 @@ main {
 }
 
 /* --- Story Backgrounds --- */
-#story1 { background-image: url("https://www.bwss.org/wp-content/uploads/BWSS-survivor-stories.jpg"); }
-#story2 { background-image: url("https://www.bwss.org/wp-content/uploads/SC002.jpg"); }
-#story3 { background-image: url("https://www.bwss.org/wp-content/uploads/SC003.jpg"); }
-#story4 { background-image: url("https://cdn.prod.website-files.com/60084943880a0ad451c6cd31/671924788def67f088e8ec36_og-image.webp"); }
-#story5 { background-image: url("https://allagainstabuse.org/wp-content/uploads/2021/05/Warrior.5-2.jpg"); }
-#story6 { background-image: url("https://www.womenagainstabuse.org/assets/img/_170x170_crop_top-center_100_none/Jamie-thumbnail.png"); }
+#story1 { background-image: url("../assets/story1.jpg"); }
+#story2 { background-image: url("../assets/story2.jpg"); }
+#story3 { background-image: url("../assets/story3.jpg"); }
+#story4 { background-image: url("../assets/story4.webp"); }
+#story5 { background-image: url("../assets/story5.jpg"); }
+#story6 { background-image: url("../assets/story6.png"); }
 
 /* --- Footer --- */
 footer {
