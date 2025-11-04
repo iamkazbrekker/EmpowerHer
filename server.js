@@ -26,6 +26,31 @@ const server = createServer(async (req, res) => {
           res.end(data)
           return
         }
+        else if (req.method === 'POST') {
+  try {
+    let body = '';
+
+    // Collect incoming data chunks
+    for await (const chunk of req) {
+      body += chunk;
+    }
+    const { testimonial } = JSON.parse(body);
+    const fileData = await fs.readFile(dataPath, 'utf-8');
+    const json = JSON.parse(fileData);
+    json.testimonials.unshift(testimonial);
+    await fs.writeFile(dataPath, JSON.stringify(json, null, 2));
+    res.statusCode = 201; // 201 = Created
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ message: 'Testimonial added successfully!' }));
+  } catch (err) {
+    console.error('Error processing POST:', err);
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ error: 'Failed to save testimonial' }));
+  }
+  return;
+}
+
       }
     }
   } catch (err) {

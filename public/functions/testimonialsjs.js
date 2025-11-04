@@ -20,7 +20,7 @@ function closeForm() {
   document.getElementById("popupForm").style.display = "none";
 }
 
-function submitTestimonial() {
+async function submitTestimonial() {
   const input = document.getElementById("testimonialInput");
   const value = input.value.trim();
 
@@ -29,15 +29,29 @@ function submitTestimonial() {
     return;
   }
 
-  const list = document.getElementById("testimonialList");
-  const newCard = document.createElement("div");
-  newCard.className = "testimonial-card";
-  newCard.innerHTML = `<h3>Anonymous</h3><p>${value}</p>`;
+  // Send new testimonial to backend
+  const response = await fetch('/api', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ testimonial: value })
+  });
 
-  list.prepend(newCard);
-  input.value = "";
-  closeForm();
+  if (response.ok) {
+    // Add new testimonial immediately to DOM
+    const list = document.getElementById("testimonialList");
+    const newCard = document.createElement("div");
+    newCard.className = "testimonial-card";
+    newCard.innerHTML = `<h3>Anonymous</h3><p>${value}</p>`;
+    list.prepend(newCard);
+
+    input.value = "";
+    closeForm();
+  } else {
+    console.error('Error submitting testimonial:', response.statusText);
+    alert('Failed to submit testimonial. Please try again.');
+  }
 }
+
 
 
 window.onload = loadTestimonials
