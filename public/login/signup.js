@@ -1,27 +1,45 @@
-document.getElementById("signupForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// public/scripts/signup.js
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('signupForm');
+  const message = document.getElementById('errorMessage');
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const errorMessage = document.getElementById("errorMessage");
+  if (!form) return;
 
-  if (!name || !email || !password) {
-    errorMessage.textContent = "Please fill in all fields.";
-    return;
-  }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    message.textContent = '';
 
-  // Save data locally (for demo only — replace with backend later)
-  localStorage.setItem("userName", name);
-  localStorage.setItem("userEmail", email);
+    const name = (document.getElementById('name')?.value || '').trim();
+    const email = (document.getElementById('email')?.value || '').trim();
+    const password = (document.getElementById('password')?.value || '').trim();
 
-  errorMessage.style.color = "lightgreen";
-  errorMessage.textContent = "Signup successful! Redirecting...";
+    if (!name || !email || !password) {
+      message.textContent = 'Please fill in all fields.';
+      return;
+    }
 
-  // Redirect to login
-  setTimeout(() => {
-    window.location.href = "../home/home.html";
-  }, 1000);
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        message.textContent = data.error || 'Signup failed.';
+        return;
+      }
+
+      message.style.color = 'green';
+      message.textContent = 'Signup successful! Redirecting to login...';
+      setTimeout(() => {
+        window.location.href = '/login/index.html';
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+      message.textContent = 'Network error. Please try again.';
+    }
+  });
 });
-localStorage.setItem("userName", name);
-localStorage.setItem("userEmail", email);

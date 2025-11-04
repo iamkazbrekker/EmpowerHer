@@ -1,83 +1,89 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Define the paths to your new SVG icons
-    // Make sure these paths match where you saved your files
-    const iconPaths = {
-        completed: '../assets/check.svg',
-        unlocked: '../assets/play.svg',
-        locked: '../assets/lock.svg'
-    };
+// home.js — EmpowerHer module unlock system (database-integrated)
 
-    // Find the highest module number unlocked, default to 1
-    const unlockedLevel = parseInt(localStorage.getItem('unlockedUpTo') || '1');
+document.addEventListener('DOMContentLoaded', async function () {
+  // --- 1. Define icon paths (relative to your assets folder)
+  const iconPaths = {
+    completed: '../assets/check.svg',
+    unlocked: '../assets/play.svg',
+    locked: '../assets/lock.svg'
+  };
 
-    // Get all the module elements
-    const modules = document.querySelectorAll('.module');
+  // --- 2. Get all module divs ---
+  const modules = document.querySelectorAll('.module');
 
-    modules.forEach(module => {
-        // Get the module number and video URL from the div
-        const moduleNumber = parseInt(module.className.match(/module-(\d+)/)[1]);
-        
-        // **MODIFIED: Select the <img> tag using its class**
-        const icon = module.querySelector('.module-icon'); 
-        const videoUrl = module.dataset.videoUrl; // Get URL from data-video-url attribute
+  // --- 3. Fetch progress (unlocked_upto) from server ---
+  async function fetchProgress() {
+    try {
+      const res = await fetch('/api/unlocked'); // Your backend route
+      if (!res.ok) {
+        console.warn('User not authenticated — redirecting to login');
+        window.location.href = '../login/index.html';
+        return 1; // Default if unauthenticated
+      }
 
-        // Safety check in case the icon img tag is missing
-        if (!icon) {
-            console.error('No .module-icon <img> tag found for module:', module);
-            return; // Skip this module
-        }
+      const data = await res.json();
+      return parseInt(data.unlocked_upto || 1);
+    } catch (err) {
+      console.error('Error fetching user progress:', err);
+      window.location.href = '../login/index.html';
+      return 1;
+    }
+  }
 
-        // A flag to check if the module should be clickable
-        let isClickable = false;
-        let newIconSrc = '';
-        let newAltText = '';
+  // --- 4. Render all modules based on unlocked level ---
+  async function renderModules() {
+    const unlockedLevel = await fetchProgress();
 
-        // Determine the module's state (completed, unlocked, or locked)
-        if (moduleNumber < unlockedLevel) {
-            // This module is COMPLETED
-            module.classList.remove('locked', 'unlocked');
-            module.classList.add('completed');
-            
-            // **MODIFIED: Set src and alt text**
-            newIconSrc = iconPaths.completed;
-            newAltText = 'Module Completed';
-            isClickable = true; // Make it clickable
+    modules.forEach((module) => {
+      const moduleNumber = parseInt(module.className.match(/module-(\d+)/)[1]);
+      const icon = module.querySelector('.module-icon');
+      const videoUrl = module.dataset.videoUrl;
+      let newIconSrc = '';
+      let newAltText = '';
+      let isClickable = false;
 
-        } else if (moduleNumber === unlockedLevel) {
-            // This is the NEXT module to be UNLOCKED
-            module.classList.remove('locked', 'completed');
-            module.classList.add('unlocked');
-            
-            // **MODIFIED: Set src and alt text**
-            newIconSrc = iconPaths.unlocked;
-            newAltText = 'Play Module';
-            isClickable = true; // Make it clickable
+      // --- Determine module state ---
+      if (moduleNumber < unlockedLevel) {
+        // Completed
+        module.classList.remove('locked', 'unlocked');
+        module.classList.add('completed');
+        newIconSrc = iconPaths.completed;
+        newAltText = 'Module Completed';
+        isClickable = true;
+      } else if (moduleNumber === unlockedLevel) {
+        // Current unlocked module
+        module.classList.remove('locked', 'completed');
+        module.classList.add('unlocked');
+        newIconSrc = iconPaths.unlocked;
+        newAltText = 'Play Module';
+        isClickable = true;
+      } else {
+        // Locked
+        module.classList.remove('unlocked', 'completed');
+        module.classList.add('locked');
+        newIconSrc = iconPaths.locked;
+        newAltText = 'Module Locked';
+      }
 
-        } else {
-            // This module is still LOCKED
-            module.classList.remove('unlocked', 'completed');
-            module.classList.add('locked');
-            
-            // **MODIFIED: Set src and alt text**
-            newIconSrc = iconPaths.locked;
-            newAltText = 'Module Locked';
-            // isClickable remains false, so it won't be made into a link
-        }
-
-        // **MODIFIED: Apply the new src and alt attributes to the <img> tag**
+      // --- Update icon ---
+      if (icon) {
         icon.src = newIconSrc;
         icon.alt = newAltText;
+      }
 
-        // *** This logic remains the same ***
-        // Only wrap the module in a link if it's clickable
-        if (isClickable && videoUrl) {
-            const link = document.createElement('a');
-            link.href = videoUrl;
-            
-            // This clever trick wraps the module div with the new <a> tag
-            module.parentNode.insertBefore(link, module);
-            link.appendChild(module);
-        }
+      // --- Add click behavior for unlocked/completed modules ---
+      if (isClickable && videoUrl) {
+        module.style.cursor = 'pointer';
+        module.onclick = () => {
+          window.location.href = videoUrl.replace('vd1', `vd${moduleNumber}`);
+        };
+      } else {
+        module.style.cursor = 'not-allowed';
+        module.onclick = null;
+      }
     });
+  }
+
+  // --- 5. Initialize rendering ---
+  renderModules();
 });

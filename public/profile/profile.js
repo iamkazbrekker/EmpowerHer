@@ -1,49 +1,61 @@
 // profile.js
 
-document.addEventListener('DOMContentLoaded', function() {
-
+document.addEventListener('DOMContentLoaded', async function() {
   // --- 1. DOM Element Selectors ---
   const usernameElement = document.querySelector('.profile-username');
   const userDateElement = document.querySelector('.profile-joindate');
-  // The 'avatarElement' is no longer needed
   const progressBarFill = document.querySelector('.progress-bar-fill');
   const expLabel = document.querySelector('.exp-labels span:last-child');
 
-  // --- 2. Function to load all user data from localStorage ---
-  function loadUserProfile() {
-    // Load Name
-    const storedName = localStorage.getItem('userName');
-    if (usernameElement && storedName) {
-      usernameElement.textContent = storedName;
-    }
+  // --- 2. Fetch user data from server (instead of localStorage) ---
+  async function loadUserProfile() {
+    try {
+      const res = await fetch('/api/user');
+      if (!res.ok) {
+        // If user is not authenticated, redirect to login
+        window.location.href = '../login/index.html';
+        return;
+      }
 
-    // Load Date of Birth
-    const storedDob = localStorage.getItem('userDOB');
-    if (userDateElement && storedDob) {
-      const date = new Date(storedDob);
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      userDateElement.textContent = `Born on ${date.toLocaleDateString(undefined, options)}`;
-    } else {
-        userDateElement.textContent = "Date of birth not set";
-    }
+      const data = await res.json();
+      const user = data.user;
 
-    // Avatar loading logic has been removed
+      // --- 3. Display User Info ---
+      if (usernameElement && user.name) {
+        usernameElement.textContent = user.name;
+      }
 
-    // Load Progress Bar
-    const totalModules = 6;
-    const expPerModule = 500;
-    const unlockedLevel = parseInt(localStorage.getItem('unlockedUpTo') || '1');
-    const completedModules = Math.max(0, unlockedLevel - 1);
-    const progressPercentage = (completedModules / totalModules) * 100;
-    const currentExp = completedModules * expPerModule;
-    const totalExpForLevel = totalModules * expPerModule;
+      // Display DOB
+      if (userDateElement) {
+        if (user.dob) {
+          const date = new Date(user.dob);
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          userDateElement.textContent = `Born on ${date.toLocaleDateString(undefined, options)}`;
+        } else {
+          userDateElement.textContent = 'Date of birth not set';
+        }
+      }
 
-    if (progressBarFill && expLabel) {
-      progressBarFill.style.width = progressPercentage + '%';
-      expLabel.textContent = `${currentExp} / ${totalExpForLevel}`;
+      // --- 4. Display Progress ---
+      const totalModules = 6;
+      const expPerModule = 500;
+      const unlockedLevel = parseInt(user.unlocked_upto || 1);
+      const completedModules = Math.max(0, unlockedLevel - 1);
+      const progressPercentage = (completedModules / totalModules) * 100;
+      const currentExp = completedModules * expPerModule;
+      const totalExpForLevel = totalModules * expPerModule;
+
+      if (progressBarFill && expLabel) {
+        progressBarFill.style.width = progressPercentage + '%';
+        expLabel.textContent = `${currentExp} / ${totalExpForLevel}`;
+      }
+
+    } catch (err) {
+      console.error('Error loading profile:', err);
+      window.location.href = '../login/index.html';
     }
   }
 
-  // --- 3. Initial Call ---
+  // --- 5. Initial Load ---
   loadUserProfile();
 });
